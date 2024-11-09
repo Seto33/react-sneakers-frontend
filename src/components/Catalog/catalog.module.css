@@ -1,0 +1,38 @@
+.container {
+    composes: container from global;
+    padding-bottom: 40px;
+}
+
+.content {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 20px;
+    padding-bottom: 30px;
+}
+
+.title {
+    composes: title from global;
+    font-size: 24px;
+}
+
+.list {
+    composes: listReset from global; 
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(210px,1fr));
+    row-gap: 40px;
+    column-gap: 40px;
+    margin: 0;
+}
+
+@media (min-width: 576px){
+    .title{
+        font-size: 32px;
+    }
+}
+
+@media (min-width: 620px){
+    .content{
+        flex-direction: row;
+    }
+}

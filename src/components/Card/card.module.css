@@ -94,6 +94,7 @@
 
 .plusButton{
     composes: button;
+    position: relative;
     grid-area: plus;
 }
 
@@ -107,9 +108,69 @@
     border: none;
 }
 
+.loading {
+    &::after {
+        content: "";
+        position: absolute;
+        z-index: 10;
+        inset: 0;
+        margin: auto;
+        width: 15px;
+        height: 15px;
+        border: 2px solid #fff;
+        border-bottom-color: #ee5f5f;
+        border-radius: 50%;
+        display: inline-block;
+        box-sizing: border-box;
+        animation: rotation 1s linear infinite;
+    }
+}
 
+@keyframes rotation {
+    0% {
+        transform: rotate(0deg);
+    }
 
+    100% {
+        transform: rotate(360deg);
+    }
+}
 
+.loading .icon{
+    display: none;
+}
+
+.loadingPlus {
+    &::after {
+        content: "";
+        position: absolute;
+        z-index: 10;
+        inset: 0;
+        margin: auto;
+        width: 15px;
+        height: 15px;
+        border: 2px solid #fff;
+        border-bottom-color: #57ef57;
+        border-radius: 50%;
+        display: inline-block;
+        box-sizing: border-box;
+        animation: rotation 1s linear infinite;
+    }
+}
+
+@keyframes rotation {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.loadingPlus .icon{
+    display: none;
+}
 
 
 

@@ -28,28 +28,28 @@ export const useFavorite = () => {
         return favorites?.some((obj) => obj.productId === id);
     }
 
-    const removeFavorite = (id) => {
-        const isRemoveFavoriteId = isSomeFavorite(id) ? isFindFavoriteId(id) : id;
+    const removeFavorite = async (id) => {
+       await fetcher(`${import.meta.env.VITE_API_URL}/favorite/${id}`, {
+            method: "DELETE"
+        })
+        
         mutate(
-            fetcher(`${import.meta.env.VITE_API_URL}/favorite/${isRemoveFavoriteId}`, {
-                method: "DELETE"
-            })
+            favorites.filter((obj) => obj.id !== id)
         ) 
     }
     
-    const addFavorite = (product) => {
+    const addFavorite = async (product) => {
 
         if(isSomeFavorite(product.productId)){
-            removeFavorite(product.productId);
             return;
         }
-
+        await fetcher(`${import.meta.env.VITE_API_URL}/favorite`, {
+            method: "POST",
+            headers: { "content-type": "application/json" },
+            body: JSON.stringify(product)
+        })
         mutate(
-            fetcher(`${import.meta.env.VITE_API_URL}/favorite`, {
-                method: "POST",
-                headers: { "content-type": "application/json" },
-                body: JSON.stringify(product)
-            })
+            [...favorites, product]
         )
     }
 

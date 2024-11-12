@@ -13,7 +13,7 @@ export const Catalog = (props) => {
   const sneakers = products
   .filter(obj => obj.title?.toLowerCase().includes(searchValue.toLowerCase()))
   .map((obj, index) => (
-    <li key={index}>
+    <li className={styles.item} key={index}>
       <Card {...obj} />
     </li>     
   ))

@@ -32,6 +32,11 @@ export const Header = () => {
   const {totalPrice} = useBasket();
   const {setIsShow} = isShowBasket();
 
+  const onClickNavLink = (id) => {
+    setNavIsOpen(!navIsOpen);
+    id === "basket" && setIsShow();
+  }
+
   return (
     <header className={styles.header}>
 
@@ -47,7 +52,9 @@ export const Header = () => {
     {
       navLinks.map(obj => (
         <li className={styles.navItem} key={obj.text}>
-      <Link className={styles.navLink} onClick = {() => obj.id === "basket" && setIsShow()} to={obj.link}>
+      <Link className={styles.navLink} 
+      onClick = {() => onClickNavLink(obj.id)} 
+      to={obj.link}>
         <Icon id={obj.id} className={styles.icon}/>
         {obj.id === "basket" ? `${totalPrice} руб.` : obj.text}
       </Link>

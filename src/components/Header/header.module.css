@@ -4,7 +4,7 @@
 
 .container {
     composes: container from global;
-    padding: 40px;
+    padding: 20px;
 
     display: flex;
     justify-content: space-between;
@@ -124,6 +124,10 @@
     .nav {
         position: static;
         padding: 0;
+    }
+
+    .container {
+        padding: 40px;
     }
 
     .navList{

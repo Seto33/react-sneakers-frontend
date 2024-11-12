@@ -26,17 +26,16 @@ export const useBasket = () => {
       }
 
     const removeProducts = async (id) => {
-        const isRemoveProductId = isSomeProduct(id) ? isFindProductId(id) : id;
-        await fetcher(`${import.meta.env.VITE_API_URL}/basket/${isRemoveProductId}`, {
+        await fetcher(`${import.meta.env.VITE_API_URL}/basket/${id}`, {
           method: "DELETE"
         })
-        mutate(basket.filter((obj) => obj.id !== isRemoveProductId),
-        {revalidate: false})
+        mutate(basket.filter((obj) => obj.id !== id),
+        )
         }
     
       const addProduct = async (product) => {
         if (isSomeProduct(product.productId)) {
-          removeProducts(product.productId);
+          
           return;
         }
         

@@ -1,17 +1,27 @@
 import styles from "./basket.module.css";
 import {Icon, Empty} from "../index";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useBasket } from "@/hooks/useBasket";
 import { isShowBasket } from "@/store/isShowBasket";
 import { useShop } from "@/hooks/useShop";
+import Card from "./Card"
 
 
 export const Basket = () => {
 
     const {shopProductsLength, addShop} = useShop();
     const [isBuy, setIsBuy] = useState(false);
-    const {basket, removeProducts, totalPrice, total} = useBasket();
+    const {basket, totalPrice, total} = useBasket();
     const {setIsShow, isShow} = isShowBasket();
+    
+    useEffect(() => {
+        return () => setIsBuy(false)
+    }, [isShow])
+
+    const onClickBuy = async () => {
+        setIsBuy(true)
+        await addShop(basket)
+    }
     
     return(
         <>
@@ -30,18 +40,7 @@ export const Basket = () => {
                 <div className={styles.cartWrapper}>
             {
                 basket.map(obj =>(
-                <div className={styles.cartItem} key={obj.id}>
-                    <img className={styles.img} src={obj.imgUrl} alt="Sneakers" />
-                    <div className={styles.cartContent}>
-                        <p className={styles.cartItemTitle}>{obj.title}</p>
-                        <span className={styles.span}>{obj.price} руб.</span>
-                    </div>
-                    <button className={styles.buttonItemClose} onClick={() => {
-                        removeProducts(obj.id);
-                    }}>
-                        <Icon className={styles.buttonClose} id={"buttonClose"} />
-                    </button>
-                </div>
+                <Card key = {obj.id} {...obj} />
                 ))
             }
             </div>
@@ -58,10 +57,12 @@ export const Basket = () => {
                         <span className={styles.price}>{total} руб.</span>
                     </li>
                 </ul>
-                <button className={styles.buttonConfirm} onClick={() => {
-                    addShop(basket);
-                    setIsBuy(true);
-                    }}>Оформить заказ 
+                <button 
+                disabled={isBuy}
+                style = {{opacity: isBuy && "0.5"}}
+                className={styles.buttonConfirm} 
+                onClick={onClickBuy}>
+                    Оформить заказ 
                     <Icon className={styles.arrowRight} id={"arrowRight"} />
                 </button>
                 

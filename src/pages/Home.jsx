@@ -4,7 +4,8 @@ import { useState } from "react";
 import { useProduct } from '../hooks/useProduct';
 
 const Home = () => {
-    const {products, isLoading} = useProduct();
+    const {products, isLoading, error} = useProduct();
+    if (error) return <h1>Произошла ошибка</h1>
     const [searchValue, setSearchValue] = useState("");
   return (
     <>

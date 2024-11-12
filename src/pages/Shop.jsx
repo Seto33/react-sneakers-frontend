@@ -4,7 +4,8 @@ import { useNavigate } from 'react-router-dom';
 import { useShop } from '../hooks/useShop';
 
 const Shop = () => {
-    const {shop} = useShop();
+    const {shop, error} = useShop();
+    if (error) return <h1>Произошла ошибка</h1>
     const navigate = useNavigate();
 
    return (
